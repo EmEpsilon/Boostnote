@@ -19,8 +19,8 @@ module.exports = function (grunt) {
   var initConfig = {
     pkg: grunt.file.readJSON('package.json'),
     'create-windows-installer': {
-      x64: {
-        appDirectory: path.join(__dirname, 'dist', 'Boostnote-win32-x64'),
+      ia32: {
+        appDirectory: path.join(__dirname, 'dist', 'Boostnote-win32-ia32'),
         outputDirectory: path.join(__dirname, 'dist'),
         authors: 'MAISIN&CO., Inc.',
         exe: 'Boostnote.exe',
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
           icon: path.join(__dirname, 'resources/app.png'),
           bin: 'Boostnote'
         },
-        src: path.join(__dirname, 'dist', 'Boostnote-linux-x64'),
+        src: path.join(__dirname, 'dist', 'Boostnote-linux-ia32'),
         dest: path.join(__dirname, 'dist')
       }
     }
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
     var done = this.async()
     var opts = {
       name: 'Boostnote',
-      arch: 'x64',
+      arch: 'ia32',
       dir: __dirname,
       version: grunt.config.get('pkg.config.electron-version'),
       'app-version': grunt.config.get('pkg.version'),
@@ -165,7 +165,7 @@ module.exports = function (grunt) {
       return
     }
 
-    ChildProcess.exec(`codesign --verbose --deep --force --sign \"${OSX_COMMON_NAME}\" dist/Boostnote-darwin-x64/Boostnote.app`,
+    ChildProcess.exec(`codesign --verbose --deep --force --sign \"${OSX_COMMON_NAME}\" dist/Boostnote-darwin-ia32/Boostnote.app`,
       function (err, stdout, stderr) {
         grunt.log.writeln(stdout)
         if (err) {
@@ -199,7 +199,7 @@ module.exports = function (grunt) {
     var done = this.async()
     switch (platform) {
       case 'osx':
-        var execPath = 'cd dist/Boostnote-darwin-x64 && zip -r -y -q ../Boostnote-mac.zip Boostnote.app'
+        var execPath = 'cd dist/Boostnote-darwin-ia32 && zip -r -y -q ../Boostnote-mac.zip Boostnote.app'
         grunt.log.writeln(execPath)
         ChildProcess.exec(execPath,
           function (err, stdout, stderr) {
