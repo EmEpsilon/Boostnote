@@ -8,7 +8,7 @@ class MarkdownEditor extends React.Component {
   constructor (props) {
     super(props)
 
-    this.hotkey = props.config.hotkey
+    this.escapeFromEditor = ['Control', 'w']
 
     this.state = {
       status: 'PREVIEW',
@@ -77,6 +77,7 @@ class MarkdownEditor extends React.Component {
   }
 
   handleBlur (e) {
+    this.setState({ keyPressed: [] })
     let { config } = this.props
     if (config.editor.switchPreview === 'BLUR') {
       let cursorPosition = this.refs.code.editor.getCursor()
@@ -151,7 +152,7 @@ class MarkdownEditor extends React.Component {
     })
     this.setState({ keyPressed })
     let isNoteHandlerKey = (el) => { return this.state.keyPressed[el] }
-    if (this.state.status === 'CODE' && this.hotkey.noteHandlerKey.escapeFromEditor.every(isNoteHandlerKey)) {
+    if (this.state.status === 'CODE' && this.escapeFromEditor.every(isNoteHandlerKey)) {
       document.activeElement.blur()
     }
   }
